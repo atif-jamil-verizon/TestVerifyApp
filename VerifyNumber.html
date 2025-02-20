@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Number</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjust for padding and border */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensure padding and border are included in the width */
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+            button {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+    </style>
+    <script>
+        function openUrl() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const browser = getBrowser();
+            const url = `pprotect://numberVerify?mdn=${phoneNumber}&browser=${browser}`;
+            window.location.href = url;
+        }
+
+        function getBrowser() {
+            const userAgent = navigator.userAgent;
+            if (userAgent.includes("Chrome")) {
+                return "Chrome";
+            } else if (userAgent.includes("Safari")) {
+                return "Safari";
+            } else {
+                return "Other";
+            }
+        }
+
+        function redirectToBrowser(url, browser) {
+            if (browser === "Chrome") {
+                window.location.href = `googlechrome://${url}`;
+            } else if (browser === "Safari") {
+                window.location.href = `safari://${url}`;
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        // Example usage
+        window.onload = function() {
+            const browser = getBrowser();
+            console.log("Browser:", browser);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Verify Phone Number</h1>
+        <input type="text" id="phoneNumber" placeholder="Enter phone number">
+        <button onclick="openUrl()">Verify</button>
+    </div>
+</body>
+</html>
